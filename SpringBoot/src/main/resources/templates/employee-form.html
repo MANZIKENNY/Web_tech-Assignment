@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Form - Employee Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    
+    <div class="container mt-4">
+        <h2 th:text="${employee.id != null ? 'Edit Employee' : 'Add New Employee'}"></h2>
+        
+        <form th:action="@{/employees/save}" th:object="${employee}" method="post">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{name}" class="form-control" id="name" required>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" th:field="*{email}" class="form-control" id="email" required>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{phone}" class="form-control" id="phone">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="position" class="col-sm-2 col-form-label">Position</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{position}" class="form-control" id="position" required>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="department" class="col-sm-2 col-form-label">Department</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{department}" class="form-control" id="department" required>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="hireDate" class="col-sm-2 col-form-label">Hire Date</label>
+                <div class="col-sm-10">
+                    <input type="date" th:field="*{hireDate}" class="form-control" id="hireDate">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="salary" class="col-sm-2 col-form-label">Salary</label>
+                <div class="col-sm-10">
+                    <input type="number" th:field="*{salary}" class="form-control" id="salary" step="0.01" required>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a th:href="@{/employees}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div th:replace="fragments/footer :: footer"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Light gray background for a modern look */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff; /* White background for container */
+    width: 350px;
+    padding: 40px;
+    border: 2px solid #4b3b5f; /* Primary color border */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    color: #4b3b5f; /* Primary color for headings */
+    margin-bottom: 20px;
+}
+
+input, button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Input fields */
+input {
+    border: 2px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+input:focus {
+    border-color: #4b3b5f;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Buttons */
+button {
+    background-color: #4b3b5f;
+    color: white;
+    border: 2px solid #4b3b5f;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #3a2b48; /* Darker shade on hover */
+}
+
+.switch-btn {
+    background: none;
+    border: none;
+    color: #4b3b5f;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.switch-btn:hover {
+    color: #3a2b48;
+}
+
+/* Back to Home button */
+#back-to-home {
+    margin-top: 20px;
+}
+
+.back-btn {
+    font-size: 16px;
+    color: #4b3b5f;
+    text-decoration: none;
+    padding: 12px 20px;
+    border: 2px solid #4b3b5f;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #4b3b5f;
+    color: white;
+    border-color: #3a2b48;
+}
+
+/* Style for the form container switch button */
+.switch-form {
+    margin-top: 15px;
+    }

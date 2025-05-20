@@ -1,0 +1,90 @@
+#container
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: white;
+    height: auto;
+}
+#agro-header
+{
+
+    display: flex;
+    background-color: white;
+    height: 50px;
+    color: #4b3b5f;
+    width: 100%;
+}
+#agro-header-login
+{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    left: 82%;
+}
+#search
+{
+    position: relative;;
+    border: 2px solid #4b3b5f;
+    border-radius: 8px;
+    width: 200px;
+    left: 41%;
+    padding: 10px;
+}
+#search input[type="text"]
+{
+    border: none;
+    outline: none;
+    font-size: 12px;
+}
+#search button
+{
+    border: none;
+    background-color: #4b3b5f;
+    color: white;
+    border-radius: 10px;
+}
+.welcome-section
+{
+    background-color: #9f89b9;
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 20px;
+}
+.welcome-section p
+{
+    color: #000000;
+    font-size: 1.5em;
+}
+.welcome-section h1
+{
+    color: #000000;
+    font-size: 3.5em;
+    
+}
+.welcome-section button
+{
+    display: flex;
+    color: #85719d;
+    font-size: 1.5em;
+    width: 10%;
+    border-radius: 8px;
+    margin: auto;
+    background-color: #ffffff;
+    width: 10%;
+    height: 35px;
+}
+#agro-products
+{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    padding: 20px;
+    border: #85719d 2px solid;
+    border-radius: 6px;
+}
+#agro-products img
+{
+    border-radius: 8px;
+}

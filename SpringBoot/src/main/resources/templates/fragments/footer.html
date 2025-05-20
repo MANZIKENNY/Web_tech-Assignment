@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <footer th:fragment="footer" class="bg-dark text-white py-3 mt-auto">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2025 Employee Management System | AUCA</p>
+            <p class="small text-muted mb-0">Current Date and Time (UTC): <span id="current-time" th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm:ss')}">2025-04-27 11:19:12</span></p>
+        </div>
+        
+        <script>
+            // High-performance time update function
+            function updateTime() {
+                const now = new Date();
+                const timeString = now.getUTCFullYear() + '-' + 
+                                  String(now.getUTCMonth() + 1).padStart(2, '0') + '-' + 
+                                  String(now.getUTCDate()).padStart(2, '0') + ' ' + 
+                                  String(now.getUTCHours()).padStart(2, '0') + ':' + 
+                                  String(now.getUTCMinutes()).padStart(2, '0') + ':' + 
+                                  String(now.getUTCSeconds()).padStart(2, '0');
+                document.getElementById('current-time').textContent = timeString;
+                requestAnimationFrame(() => setTimeout(updateTime, 1000));
+            }
+            updateTime();
+        </script>
+    </footer>
+</body>
+</html>

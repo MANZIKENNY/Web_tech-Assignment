@@ -1,0 +1,310 @@
+/* Enhanced EMS System - Optimized CSS */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --success-color: #2ecc71;
+  --danger-color: #e74c3c;
+  --warning-color: #f39c12;
+  --info-color: #3498db;
+  --light-color: #ecf0f1;
+  --dark-color: #2c3e50;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar styling with fixed dropdown issues */
+.navbar {
+  background-color: var(--dark-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1030;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white !important;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: white !important;
+}
+
+/* Fix for dropdown menus */
+.dropdown-menu {
+  z-index: 1040;
+  border: none;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  overflow: visible !important;
+}
+
+.dropdown-item {
+  padding: 8px 16px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Container spacing */
+.container {
+  padding: 2rem 1rem;
+  z-index: auto;
+  flex: 1;
+}
+
+/* Card styling */
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  border: none;
+  transition: transform 0.3s ease;
+  overflow: visible; /* Ensures dropdowns aren't cut off */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px 8px 0 0 !important;
+  font-weight: 600;
+  border: none;
+}
+
+/* Button styling */
+.btn {
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn-success:hover {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
+/* Table styling */
+.table {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  font-weight: 500;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(236, 240, 241, 0.5);
+}
+
+/* Form control - Fix for select dropdowns */
+.form-control {
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ced4da;
+  height: auto;
+}
+
+select.form-control {
+  padding-right: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6' viewBox='0 0 8 6'%3E%3Cpath fill='%23333' d='M0 0h8L4 6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 8px 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+/* Fix for custom select dropdown */
+.custom-select {
+  position: relative;
+  height: auto;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  width: 100%;
+  z-index: 1; /* Ensure dropdown options are visible */
+}
+
+/* Fix for custom file input */
+.custom-file-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 90px;
+}
+
+.custom-file-label::after {
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Alert styling */
+.alert {
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: none;
+}
+
+.alert-success {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: #27ae60;
+}
+
+.alert-danger {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #c0392b;
+}
+
+/* Profile Picture */
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+}
+
+.profile-picture-lg {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Dashboard Stats */
+.stats-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stats-card .number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stats-card .title {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-top: 0.5rem;
+}
+
+/* Footer */
+footer {
+  background-color: var(--dark-color);
+  color: white;
+  padding: 1.5rem 0;
+  margin-top: auto;
+  text-align: center;
+}
+
+/* Role badges */
+.badge {
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.badge-admin {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.badge-hr {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.badge-employee {
+  background-color: var(--info-color);
+  color: white;
+}
+
+/* Fix for select2 and other third-party dropdown components */
+.select2-container {
+  z-index: 1060 !important;
+  width: 100% !important;
+}
+
+.select2-container--open .select2-dropdown {
+  border-color: var(--primary-color);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .table-responsive {
+    border: none;
+  }
+  
+  .profile-picture-lg {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .stats-card .number {
+    font-size: 2rem;
+  }
+}

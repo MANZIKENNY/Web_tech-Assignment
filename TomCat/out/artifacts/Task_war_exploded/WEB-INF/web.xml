@@ -1,0 +1,40 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>rw.auca.hr.filter.AuthFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/dashboard/*</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>rw.auca.hr.servlet.HomeServlet</servlet-class>
+    </servlet>
+    <!-- Error Page Configuration -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/pages/errors/404.html</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/pages/errors/500.html</location>
+    </error-page>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
+
+</web-app>

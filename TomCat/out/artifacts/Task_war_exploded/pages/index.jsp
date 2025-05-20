@@ -1,0 +1,60 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriMart</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="AgriMart Logo">
+    </div>
+    <div class="login" onclick="window.location.href='${pageContext.request.contextPath}/auth'">
+        <img src="${pageContext.request.contextPath}/assets/images/login.png" alt="Login Icon">
+        <span>Login</span>
+    </div>
+</header>
+
+<section class="welcome">
+    <h1>Welcome to AgriMart</h1>
+    <p>Your one-stop shop for all farming products</p>
+    <button class="start-buying" onclick="window.location.href='${pageContext.request.contextPath}/auth'">Start Buying</button>
+</section>
+
+<section class="search-section">
+    <input type="text" placeholder="Search for products...">
+    <button class="search-button">
+        <img src="${pageContext.request.contextPath}/assets/images/search.png" alt="Search Icon">
+    </button>
+</section>
+
+<section class="products">
+    <h2>Featured Products</h2>
+    <div class="product-card" style="background-color: #3b8256;">
+        <img src="${pageContext.request.contextPath}/assets/images/tractor.jpeg" alt="Tractor">
+        <h3>Tractor</h3>
+        <p>Category: Machinery</p>
+    </div>
+    <div class="product-card" style="background-color: #377e36;">
+        <img src="${pageContext.request.contextPath}/assets/images/pest.jpeg" alt="Pesticides">
+        <h3>Pesticides</h3>
+        <p>Category: Solutions</p>
+    </div>
+    <div class="product-card" style="background-color: #f59c5c;">
+        <img src="${pageContext.request.contextPath}/assets/images/fert.jpeg" alt="Fertilizer">
+        <h3>Fertilizer</h3>
+        <p>Category: Nutrients</p>
+    </div>
+</section>
+
+<section class="attractive-section">
+    <h2>Why Choose Us</h2>
+    <p>We provide the best farming products at the best prices.</p>
+    <p>Our products are of the highest quality and sourced from trusted suppliers.</p>
+</section>
+
+</body>
+</html>

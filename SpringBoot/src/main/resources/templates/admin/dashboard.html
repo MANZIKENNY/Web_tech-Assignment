@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - EMS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <meta http-equiv="refresh" content="30"> <!-- Auto refresh every 30 seconds -->
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/employees}">
+                <i class="fas fa-users mr-2"></i>EMS
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/employees}">Employees</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+                    </li>
+                </ul>
+                <div class="navbar-text mr-3" th:if="${session.user != null}">
+                    <span class="mr-2" th:text="${session.user.username}"></span>
+                    <span class="badge badge-admin" th:text="${session.user.role}"></span>
+                </div>
+                <a class="btn btn-outline-light btn-sm" th:href="@{/logout}">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2><i class="fas fa-tachometer-alt mr-2"></i>Admin Dashboard</h2>
+        
+        <div class="alert alert-success" th:if="${message}" th:text="${message}"></div>
+        
+        <!-- First Row: User Role Statistics -->
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${totalUsers}">0</div>
+                        <div class="title">Total Users</div>
+                        <i class="fas fa-users fa-3x text-primary mt-3"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${totalEmployees}">0</div>
+                        <div class="title">Employees</div>
+                        <i class="fas fa-user-tie fa-3x text-info mt-3"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${totalHRs}">0</div>
+                        <div class="title">HR Managers</div>
+                        <i class="fas fa-user-shield fa-3x text-warning mt-3"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${totalAdmins}">0</div>
+                        <div class="title">Administrators</div>
+                        <i class="fas fa-user-cog fa-3x text-danger mt-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Second Row: Activity Monitoring -->
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${activeUsers}">0</div>
+                        <div class="title">Active Users</div>
+                        <i class="fas fa-user-check fa-3x text-success mt-3"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${totalRequests}">0</div>
+                        <div class="title">Total Requests</div>
+                        <i class="fas fa-exchange-alt fa-3x text-info mt-3"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${recentRequests}">0</div>
+                        <div class="title">Recent Requests</div>
+                        <i class="fas fa-bolt fa-3x text-warning mt-3"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <div class="number" th:text="${#dates.format(new java.util.Date(), 'HH:mm:ss')}">00:00:00</div>
+                        <div class="title">Server Time</div>
+                        <i class="fas fa-clock fa-3x text-secondary mt-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Active Sessions -->
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0"><i class="fas fa-user-clock mr-2"></i>Active Users</h4>
+                <span class="badge badge-success" th:text="${activeUsers} + ' online'"></span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Profile</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Login Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${activeSessions == null || activeSessions.isEmpty()}">
+                                <td colspan="4" class="text-center">No active users</td>
+                            </tr>
+                            <tr th:each="activeSession : ${activeSessions}">
+                                <td>
+                                    <img th:if="${activeSession.value.user.profilePicture}" 
+                                         th:src="@{'/uploads/' + ${activeSession.value.user.profilePicture}}" 
+                                         class="profile-picture" alt="Profile"/>
+                                    <img th:unless="${activeSession.value.user.profilePicture}" 
+                                         th:src="@{/assets/default-profile.png}" 
+                                         class="profile-picture" alt="Default Profile"/>
+                                </td>
+                                <td th:text="${activeSession.value.user.username}"></td>
+                                <td>
+                                    <span class="badge" th:classappend="${activeSession.value.user.role == T(com.auca.ems.model.User.UserRole).ADMIN ? 'badge-admin' : (activeSession.value.user.role == T(com.auca.ems.model.User.UserRole).HR ? 'badge-hr' : 'badge-employee')}" 
+                                          th:text="${activeSession.value.user.role}"></span>
+                                </td>
+                                <td th:text="${#temporals.format(activeSession.value.loginTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- User Management -->
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0"><i class="fas fa-users-cog mr-2"></i>User Management</h4>
+                <span class="badge badge-primary" th:text="${users != null ? users.size() : 0} + ' users'"></span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Profile</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${users == null || users.empty}">
+                                <td colspan="4" class="text-center">No users found</td>
+                            </tr>
+                            <tr th:each="user : ${users}">
+                                <td>
+                                    <img th:if="${user.profilePicture}" th:src="@{'/uploads/' + ${user.profilePicture}}" class="profile-picture" alt="Profile"/>
+                                    <img th:unless="${user.profilePicture}" th:src="@{/assets/default-profile.png}" class="profile-picture" alt="Default Profile"/>
+                                </td>
+                                <td th:text="${user.username}"></td>
+                                <td>
+                                    <span class="badge" th:classappend="${user.role == T(com.auca.ems.model.User.UserRole).ADMIN ? 'badge-admin' : (user.role == T(com.auca.ems.model.User.UserRole).HR ? 'badge-hr' : 'badge-employee')}" 
+                                          th:text="${user.role}"></span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/users/{id}/edit(id=${user.id})}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-edit"></i> Edit Role
+                                    </a>
+                                    <a th:href="@{/admin/users/{id}/delete(id=${user.id})}" class="btn btn-sm btn-danger" th:if="${session.user != null && user.id != session.user.id}"
+                                       onclick="return confirm('Are you sure you want to delete this user?')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Server time indicator -->
+        <div class="text-right mt-3 text-muted">
+            <small>Last updated: <span th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm:ss')}">2025-04-27 12:45:33</span></small>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 Employee Management System | AUCA</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

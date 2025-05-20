@@ -1,0 +1,77 @@
+package rw.auca.hr.util;
+
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
+import jakarta.servlet.ServletRequestEvent;
+import jakarta.servlet.ServletRequestListener;
+import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.http.HttpServletRequest;
+
+@WebListener
+public class ServerStats implements HttpSessionListener, ServletRequestListener {
+    private static final AtomicInteger activeSessions = new AtomicInteger(0);
+    private static final AtomicLong totalRequests = new AtomicLong(0);
+    
+    // Static resource patterns
+    private static final String[] STATIC_PATTERNS = {
+        ".css", ".js", ".jpg", ".png", ".svg", ".ico",
+        "/css/", "/js/", "/assets/", "/images/"
+    };
+    
+    // Request attribute to prevent duplicate counting
+    private static final String REQUEST_PROCESSED = "request_processed";
+    
+    @Override
+    public void sessionCreated(HttpSessionEvent se) {
+        activeSessions.incrementAndGet();
+    }
+    
+    @Override
+    public void sessionDestroyed(HttpSessionEvent se) {
+        activeSessions.decrementAndGet();
+    }
+    
+    @Override
+    public void requestInitialized(ServletRequestEvent sre) {
+        if (sre.getServletRequest() instanceof HttpServletRequest) {
+            HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
+            
+            // Skip static resources and already counted requests
+            if (isStaticResource(request.getRequestURI()) || 
+                request.getAttribute(REQUEST_PROCESSED) != null) {
+                return;
+            }
+            
+            // Mark this request as processed
+            request.setAttribute(REQUEST_PROCESSED, Boolean.TRUE);
+            totalRequests.incrementAndGet();
+        }
+    }
+    
+    @Override
+    public void requestDestroyed(ServletRequestEvent sre) {
+        // Nothing to do
+    }
+    
+    private boolean isStaticResource(String uri) {
+        if (uri == null) return false;
+        
+        for (String pattern : STATIC_PATTERNS) {
+            if (uri.contains(pattern)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static int getActiveSessions() {
+        return activeSessions.get();
+    }
+    
+    public static long getTotalRequests() {
+        return totalRequests.get();
+    }
+}

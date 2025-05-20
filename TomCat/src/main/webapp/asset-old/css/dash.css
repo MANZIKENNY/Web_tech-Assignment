@@ -1,0 +1,9 @@
+.user-connected {
+  color: green;
+  font-size: 1.5em;
+  border-top: 2px solid green;
+}
+.header p {
+  font-size: 1.5em;
+  color: rgb(73, 159, 250);
+}

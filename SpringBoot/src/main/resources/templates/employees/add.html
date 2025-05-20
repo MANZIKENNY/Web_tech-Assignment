@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee - EMS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/employees}">
+                <i class="fas fa-users mr-2"></i>EMS
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/employees}">Employees</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.user.role == T(com.auca.ems.model.User.UserRole).ADMIN}">
+                        <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+                    </li>
+                </ul>
+                <div class="navbar-text mr-3" th:if="${session.user != null}">
+                    <span class="mr-2" th:text="${session.user.username}"></span>
+                    <span class="badge" th:classappend="${session.user.role == T(com.auca.ems.model.User.UserRole).ADMIN ? 'badge-admin' : (session.user.role == T(com.auca.ems.model.User.UserRole).HR ? 'badge-hr' : 'badge-employee')}" 
+                          th:text="${session.user.role}"></span>
+                </div>
+                <a class="btn btn-outline-light btn-sm" th:href="@{/logout}">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0"><i class="fas fa-plus-circle mr-2"></i>Add New Employee</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+                        
+                        <form th:action="@{/employees/add}" method="post" enctype="multipart/form-data" th:object="${employee}">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" th:field="*{email}" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="hireDate">Hire Date</label>
+                                    <input type="date" id="hireDate" name="hireDate" th:field="*{hireDate}" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="department">Department</label>
+                                    <select id="department" name="department" th:field="*{department}" class="form-control" required>
+                                        <option value="">Select Department</option>
+                                        <option value="IT">IT</option>
+                                        <option value="HR">HR</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="Marketing">Marketing</option>
+                                        <option value="Operations">Operations</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="position">Position</label>
+                                    <input type="text" id="position" name="position" th:field="*{position}" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="salary">Salary</label>
+                                <input type="number" step="0.01" id="salary" name="salary" th:field="*{salary}" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="profileImage">Profile Picture</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="profileImage" name="profileImage" accept="image/*">
+                                    <label class="custom-file-label" for="profileImage">Choose file</label>
+                                </div>
+                                <small class="form-text text-muted">Optional. Maximum size: 10MB</small>
+                            </div>
+                            
+                            <div class="form-group text-right">
+                                <a th:href="@{/employees}" class="btn btn-secondary mr-2">
+                                    <i class="fas fa-times mr-1"></i>Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save mr-1"></i>Save Employee
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 Employee Management System | AUCA</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Display file name when selected
+        document.querySelector('.custom-file-input').addEventListener('change', function(e) {
+            const fileName = e.target.files[0].name;
+            const label = e.target.nextElementSibling;
+            label.innerHTML = fileName;
+        });
+    </script>
+</body>
+</html>

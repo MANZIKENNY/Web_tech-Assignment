@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/employees}">
+                <i class="fas fa-users mr-2"></i>EMS
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().contains('/employees') ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/employees}">Employees</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.user.role == T(com.auca.ems.model.User.UserRole).ADMIN}" 
+                        th:classappend="${#httpServletRequest.getRequestURI().contains('/admin') ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().contains('/profile') ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/profile}">My Profile</a>
+                    </li>
+                </ul>
+                <div class="user-info mr-3" th:if="${session.user != null}">
+                    <a th:href="@{/profile}" class="text-light d-flex align-items-center text-decoration-none">
+                        <img th:if="${session.user.profilePicture}" 
+                             th:src="@{'/uploads/' + ${session.user.profilePicture}}" 
+                             alt="Profile" class="profile-picture-sm">
+                        <img th:unless="${session.user.profilePicture}" 
+                             th:src="@{/assets/default-profile.png}" 
+                             alt="Profile" class="profile-picture-sm">
+                        <span class="mx-2" th:text="${session.user.username}">AshimweGeoffrey</span>
+                    </a>
+                    <span class="badge" th:classappend="${session.user.role == T(com.auca.ems.model.User.UserRole).ADMIN ? 'badge-admin' : (session.user.role == T(com.auca.ems.model.User.UserRole).HR ? 'badge-hr' : 'badge-employee')}" 
+                          th:text="${session.user.role}">ADMIN</span>
+                </div>
+                <a class="btn btn-outline-light btn-sm" th:href="@{/logout}">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
